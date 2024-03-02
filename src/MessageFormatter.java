@@ -42,6 +42,7 @@ public class MessageFormatter {
      * Gets a string in the format of {@code "[SERVER]: message"}.
      * 
      * @apiNote A newline ({@code '\n'}) is appended to the end of the string.
+     * @apiNote The string is made bold-white.
      * 
      * @param message The message sent by the server.
      * 
@@ -63,8 +64,7 @@ public class MessageFormatter {
      * Gets a string the format of {@code "userName has joined the chat"}.
      * 
      * @apiNote A newline ({@code '\n'}) is appended to the end of the string.
-     * <p>
-     * Also, the string is colored green.
+     * @apiNote The string is colored green.
      * 
      * @param userName The username that joined the server.
      * 
@@ -86,8 +86,7 @@ public class MessageFormatter {
      * Gets a string the format of {@code "userName has left the chat"}.
      * 
      * @apiNote A newline ({@code '\n'}) is appended to the end of the string.
-     * <p>
-     * Also, the string is colored red.
+     * @apiNote The string is colored red.
      * 
      * @param userName The username that left the server.
      * 
@@ -109,8 +108,7 @@ public class MessageFormatter {
      * Gets a string the format of {@code "userName has whispered: message"}.
      * 
      * @apiNote A newline ({@code '\n'}) is appended to the end of the string.
-     * <p>
-     * Also, the string is colored yellow.
+     * @apiNote The string is colored yellow.
      * 
      * @param userName The username that whispered the message.
      * @param message  The message to be whispered.
