@@ -78,6 +78,7 @@ public class Server implements Runnable {
                 }
             } catch (IOException e) {
                 System.err.println("failed accepting incoming client. server socket closed?");
+                System.exit(0);
             }
         }
     }
@@ -90,7 +91,7 @@ public class Server implements Runnable {
      */
     private void close() {
         for (final ClientHandler client : clients.values()) {
-            disconnectClient(client);
+            disconnectClient(client, false);
         }
         clients.clear();
 
@@ -150,7 +151,7 @@ public class Server implements Runnable {
         final String[] tokens = command.split(" ");
 
         if (tokens[0].equals("/quit")) {
-            disconnectClient(from);
+            disconnectClient(from, true);
         } else if (tokens[0].equals("/whisper")) {
             if (tokens.length < 3) {
                 try {
@@ -214,11 +215,15 @@ public class Server implements Runnable {
      * Disconnects {@code client} from the server.
      * 
      * @param client The client to disconnect from the server.
+     * @param remove A flag indicating whether or not the client should be
+     * removed from the {@code clients} HashMap.
      */
-    private void disconnectClient(ClientHandler client) {
+    private void disconnectClient(ClientHandler client, boolean remove) {
         final String userName = client.getUserName();
         try {
-            clients.remove(userName);
+            if (remove) {
+                clients.remove(userName);
+            }
             client.sendMessage("/close"); // forward disconnect command
             client.close();
 
@@ -364,7 +369,7 @@ public class Server implements Runnable {
                     }
                 } catch (IOException e) {
                     System.err.println("failed recieving bytes from client input stream");
-                    disconnectClient(this);
+                    disconnectClient(this, true);
                 }
             }
         }
